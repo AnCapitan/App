@@ -15,6 +15,13 @@ async def list_users(db: Session = Depends(get_async_session)):
     users = result.scalars().all()
     return users
 
+@router_user.get("/users/{user_id}")
+async def get_user(user_id: int, db: Session = Depends(get_async_session)):
+    stmt = select(User).where(User.id == user_id)
+    result = await db.execute(stmt)
+    user = result.scalars(stmt).one()
+    return user
+
 @router_user.post("/users/")
 async def create_user(user_create: UserCreate, db: Session = Depends(get_async_session)):
     new_user = User(**user_create.dict())
