@@ -1,12 +1,26 @@
 from fastapi import APIRouter, Depends
-from .models import User
-from .schemes import UserCreate
 from config.database import get_async_session
 from sqlalchemy.future import select
-from sqlalchemy.orm import selectinload
 from sqlalchemy.orm import Session
+import redis.asyncio as redis
+from .models import User
+from .schemes import UserCreate
+
 
 router_user = APIRouter()
+
+
+
+@router_user.get("/")
+async def request_get():
+    return {"message": "request_get"}
+
+@router_user.post("/")
+async def request_post():
+    return {"message": "request_post"}
+
+
+
 
 @router_user.get("/users/")
 async def list_users(db: Session = Depends(get_async_session)):
