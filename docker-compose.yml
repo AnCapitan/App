@@ -1,6 +1,7 @@
 version: '3.8'
 
 services:
+  
   db:
     container_name: database
     image: postgres:alpine
@@ -11,11 +12,12 @@ services:
       - 5432:5432
     env_file:
       - .env
+  
   backend:
     container_name: backend
     restart: always
     build:
-      context: .
+      context: ./backend
     command: sh -c "python main.py"
     volumes:
       - ./backend:/tmp/backend
@@ -25,3 +27,14 @@ services:
       - .env
     depends_on:
       - db
+
+  frontend:
+    container_name: frontend
+    restart: always
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend:/tmp/frontend
+    ports:
+      - "3000:3000"
