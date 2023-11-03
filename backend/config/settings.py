@@ -2,7 +2,11 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from users.routes import router_user
 from api.routes import router_binance
+from tasks.routes import router_task
 from contextlib import asynccontextmanager
+
+
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -32,5 +36,6 @@ app.add_middleware(
 
 
 "ROUTES"
-app.include_router(router_user)
-app.include_router(router_binance)
+app.include_router(router_user, tags=["users"])
+app.include_router(router_binance, tags=["binance"])
+app.include_router(router_task, tags=["tasks"])

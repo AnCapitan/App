@@ -36,6 +36,8 @@ async def get_user(user_id: int, db: Session = Depends(get_async_session)):
     user = result.scalars(stmt).one()
     return user
 
+
+
 @router_user.post("/users/")
 async def create_user(user_create: UserCreate, db: Session = Depends(get_async_session)):
     new_user = User(**user_create.dict())
