@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from api.routes import router_binance
 from tasks.routes import router_task
 from auth.routes import router_auth
 from contextlib import asynccontextmanager
@@ -30,6 +29,5 @@ app.add_middleware(
 )
 
 "ROUTES"
-app.include_router(router_binance, tags=["binance"])
 app.include_router(router_task, tags=["tasks"])
 app.include_router(router_auth, tags=["auth"])

@@ -1,9 +1,9 @@
 from pydantic import BaseModel, EmailStr
 
 
-class User(BaseModel):
+class UserSchema(BaseModel):
     username: str
-    password: str
+    email: EmailStr
 
 class CreateUser(BaseModel):
     username: str
@@ -11,6 +11,9 @@ class CreateUser(BaseModel):
     hashed_password: str
 
 
-
 class Token(BaseModel):
     access_token: str
+    token_type: str
+
+class TokenData(BaseModel):
+    username: str | None = None
