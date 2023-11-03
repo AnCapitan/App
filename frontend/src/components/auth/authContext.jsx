@@ -7,26 +7,20 @@ export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
 
     const login = async (username, password) => {
-
-        const authData = {
-            username: username,
-            password: password,
-        };
-       await axios.post('http://127.0.0.1:8000/api/login/', authData)   // use axios here
+        const authData = new URLSearchParams();
+        authData.append('username', username);
+        authData.append('password', password);
+        await axios.post('http://0.0.0.0:5000/token', authData)
             .then(response => {
-                console.log(response);
-                localStorage.setItem('token', response.data.token);
+                localStorage.setItem('token', response.data.access_token);
+                localStorage.setItem('token_type', response.data.token_type);
                 setUser({
-                    id: response.data.user_id,
-                    email: response.data.email,
-                    username: response.data.username,
-                    token: response.data.token,
+                    token: response.data.access_token, // response.data.access_token, чтобы сохранить токен
                 });
             })
             .catch(error => {
                 console.log(error);
             });
-
     };
 
     // имитация выхода из системы
@@ -44,8 +38,12 @@ export function AuthProvider({ children }) {
     useEffect(() => {
         if (user) {
             localStorage.setItem('user', JSON.stringify(user));
+            localStorage.setItem('token', user.token);
+            localStorage.setItem('token_type', 'bearer');
         } else {
             localStorage.removeItem('user');
+            localStorage.removeItem('token');
+            localStorage.removeItem('token_type');
         }
     }, [user]);
 

@@ -9,7 +9,8 @@ const Sidebar = () => {
           <Nav.Link href="/home">Главная</Nav.Link>
           <Nav.Link href="/tasks">Задачи</Nav.Link>
           <Nav.Link href="/create_task">Создать задачу</Nav.Link>
-          <Nav.Link href="/lk">Личный кабинет</Nav.Link>
+          <Nav.Link href="/profile">Личный кабинет</Nav.Link>
+          <Nav.Link href="/login">Авторизация</Nav.Link>
         </Nav>
       </Card.Body>
     </Card>
