@@ -24,7 +24,7 @@ async def delete_task(task_id: int, db: Session = Depends(get_async_session)):
 async def update_task(task_update: TaskUpdate, task_id: int, db: Session = Depends(get_async_session)):
     return await update_task_in_db(db, task_id, task_update)
 
-@router_task.post("/taks/")
+@router_task.post("/tasks/")
 async def create_task(task_create: TaskCreate, db: Session = Depends(get_async_session)):
     return await create_task_in_db(db, task_create)
 

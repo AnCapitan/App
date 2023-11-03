@@ -5,8 +5,8 @@ from sqlalchemy import pool
 
 from alembic import context
 from config.config import POSTGRES_HOST, POSTGRES_PORT, POSTGRES_NAME, POSTGRES_USER, POSTGRES_PASSWORD
-from users.models import Base as UserBase
 from tasks.models import Base as TasksBase
+from auth.models import Base as UserBase
 #from backend.users.models import Base
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
