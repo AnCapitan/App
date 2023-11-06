@@ -1,10 +1,11 @@
 from pydantic import BaseModel
 
-class TaskCreate(BaseModel):
+
+class TaskSchemaAdd(BaseModel):
     title: str
     description: str
 
-class TaskUpdate(BaseModel):
+class TaskSchemaUpdate(BaseModel):
     title: str
     description: str
     status: bool

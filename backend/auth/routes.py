@@ -9,6 +9,7 @@ from config.database import get_async_session
 from sqlalchemy.orm import Session
 from typing import Annotated
 
+
 router_auth = APIRouter()
 
 @router_auth.get("/secure-data")
@@ -45,3 +46,4 @@ async def read_users_me(
     current_user: Annotated[User, Depends(get_current_active_user)]
 ):
     return current_user
+

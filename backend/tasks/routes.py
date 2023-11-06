@@ -1,30 +1,33 @@
-from tasks.schemas import TaskCreate,  TaskUpdate
+from typing import Annotated
 from fastapi import APIRouter, Depends
-from config.database import get_async_session
-from sqlalchemy.orm import Session
-from .crud import update_task_in_db, create_task_in_db, list_task_in_db, get_task_in_db, delete_task_in_db
+from .schemas import TaskSchemaAdd, TaskSchemaUpdate
+from .dependencies import tasks_service
+from .service import TasksService
 
+router_task = APIRouter(prefix='/tasks', tags=["Tasks"])
 
-router_task = APIRouter()
+@router_task.get("")
+async def tasks(tasks_service: Annotated[TasksService, Depends(tasks_service)]):
+    tasks = await tasks_service.get_tasks()
+    return tasks
 
+@router_task.get("/{task_id}")
+async def get_task(task_id: int, tasks_service: Annotated[TasksService, Depends(tasks_service)]):
+    task = await tasks_service.get_task(task_id)
+    return task
 
-@router_task.get("/tasks/")
-async def list_task(db: Session = Depends(get_async_session)):
-    return await list_task_in_db(db)
+@router_task.post("")
+async def add_task(task: TaskSchemaAdd, tasks_service: Annotated[TasksService, Depends(tasks_service)]):
+    task_id = await tasks_service.add_task(task)
+    return {"task id": task_id}
 
-@router_task.get("/tasks/{task_id}")
-async def get_task(task_id: int, db: Session = Depends(get_async_session)):
-    return await get_task_in_db(db, task_id)
+@router_task.put("/{task_id}")
+async def update_task(task: TaskSchemaUpdate, task_id: int, tasks_service: Annotated[TasksService, Depends(tasks_service)]):
+    task = await tasks_service.update_task(task_id, task)
+    return task
 
-@router_task.delete("/tasks/{task_id}")
-async def delete_task(task_id: int, db: Session = Depends(get_async_session)):
-    return await delete_task_in_db(db, task_id)
-    
-@router_task.put("/tasks/{task_id}")
-async def update_task(task_update: TaskUpdate, task_id: int, db: Session = Depends(get_async_session)):
-    return await update_task_in_db(db, task_id, task_update)
-
-@router_task.post("/tasks/")
-async def create_task(task_create: TaskCreate, db: Session = Depends(get_async_session)):
-    return await create_task_in_db(db, task_create)
-
+@router_task.delete("/{task_id}")
+async def delete_task(task_id: int, tasks_service: Annotated[TasksService, Depends(tasks_service)]):
+    task = await tasks_service.delete_task(task_id)
+    return task
+                   
