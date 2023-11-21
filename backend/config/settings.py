@@ -4,14 +4,13 @@ from tasks.routes import router_task
 from auth.routes import router_auth
 from contextlib import asynccontextmanager
 
-
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     print("RUN")
     yield
     print("STOP")
 
-app = FastAPI(title="API", lifespan=lifespan)
+app = FastAPI(title="API", lifespan=lifespan, debug=True, docs_url='/api/docs')
 
 origins = [
     "http://127.0.0.1:3000",

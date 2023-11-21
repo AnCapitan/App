@@ -1,0 +1,14 @@
+version: '3.9'
+
+services:
+  
+  frontend:
+    container_name: frontend
+    restart: always
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ../frontend:/tmp/frontend
+    ports:
+      - "3000:3000"
