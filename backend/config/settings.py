@@ -4,6 +4,7 @@ from tasks.routes import router_task
 from auth.routes import router_auth
 from contextlib import asynccontextmanager
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     print("RUN")
@@ -28,5 +29,5 @@ app.add_middleware(
 )
 
 "ROUTES"
-app.include_router(router_task, tags=["tasks"])
+app.include_router(router_task)
 app.include_router(router_auth, tags=["auth"])

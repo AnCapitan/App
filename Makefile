@@ -20,11 +20,11 @@ drop-backend:
 	${DC} -f ${BACKEND_FILE} down
 
 .PHONY: frontend
-backend:
+frontend:
 	${DC} -f ${FRONTEND_FILE} up --build -d
 
 .PHONY: drop-frontend
-drop-backend:
+drop-frontend:
 	${DC} -f ${FRONTEND_FILE} down
 
 .PHONY: all

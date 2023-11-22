@@ -32,3 +32,4 @@ database
 
 # macOS
 .DS_Store
+poetry.lock
