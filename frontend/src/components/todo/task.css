@@ -1,0 +1,9 @@
+.block-example-container {
+max-width: 300px;
+margin: auto;
+margin-top: 25px;
+margin-bottom: 25px;
+}
+.block-example-button {
+width: 100%;
+}
